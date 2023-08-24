@@ -25,6 +25,5 @@ Allow: /wp-*.gif
 Allow: /wp-admin/admin-ajax.php 
 
 
-Sitemap: https://1wins.in/sitemap.xml
+Sitemap: https://1winbest.com/sitemap.xml
 
-Sitemap: https://1wins.in/sitemap.rss
