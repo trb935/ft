@@ -1,3 +1,39 @@
+<!DOCTYPE html> 
+<html lang="en-US">
+
+<head>
+	<title>
+		How To Add Google Translate
+		Button On Your Webpage ?
+	</title>
+</head>
+
+<body>
+
+
+	
+
+	<div id="google_translate_element"></div>
+
+	<script type="text/javascript">
+		function googleTranslateElementInit() {
+			new google.translate.TranslateElement(
+				{pageLanguage: 'en'},
+				'google_translate_element'
+			);
+		}
+	</script>
+
+	<script type="text/javascript"
+			src=
+"https://translate.google.com/translate_a/element.js?
+cb=googleTranslateElementInit">
+	</script>
+
+
+</body>
+
+</html>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -181,13 +217,13 @@
 </head>
 <body>
 
-<button class="info-button" onclick="toggleInfoMessage()">Bilgi</button>
+<button class="info-button" onclick="toggleInfoMessage()">Info</button>
 
 <div id="info-message"></div>
 
 <script>
   function toggleInfoMessage() {
-    var infoMessage = "Buraya mesajınızı yazabilirsiniz.";
+    var infoMessage = "You can use it completely unlimited after purchasing 1 package valid for 181 days. Your account will be activated 10 minutes after payment. You also have the right to use it limited free of charge once a day.";
     var infoDiv = document.getElementById("info-message");
     if (infoDiv.style.display === "block") {
       infoDiv.style.display = "none";
@@ -200,4 +236,3 @@
 
 </body>
 </html>
-
