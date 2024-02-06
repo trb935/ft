@@ -1,135 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>IP Address</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        #ipAddress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding: 10px;
-            background-color: #d2b48c; /* Altın kahverengisi */
-            border-bottom-right-radius: 5px;
-        }
-
-        #ipText {
-            color: #8b4513; /* Altın kahverengisi tonları */
-        }
-
-        #ipValue {
-            font-size: 12px;
-        }
-    </style>
-</head>
-<body>
-
-<div id="ipAddress">
-    <span id="ipText">IP: </span>
-    <span id="ipValue"></span>
-</div>
-
-<!-- Bootstrap JS ve jQuery (Popper.js içerir) -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-<script>
-    // IP adresini almak için "ipinfo.io" API'sini kullanıyoruz
-    function getIPAddress() {
-        fetch("https://ipinfo.io/json")
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('ipValue').textContent = data.ip;
-            })
-            .catch(error => console.error('IP adresi alınamadı', error));
-    }
-
-    // Hemen başlangıçta bir kere çağrılacak
-    getIPAddress();
-
-    // Her 5 saniyede bir IP adresini güncelle
-    setInterval(getIPAddress, 5000);
-</script>
-
-</body>
-</html>
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Online Status</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        #onlineStatus {
-            position: fixed;
-            top: 0;
-            right: 0;
-            padding: 10px;
-            background-color: #d2b48c; /* Altın kahverengisi */
-            border-bottom-left-radius: 5px;
-        }
-
-        #onlineText, #randomNumber {
-            color: #8b4513; /* Altın kahverengisi tonları */
-        }
-
-        .blink {
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            50% {
-                opacity: 0;
-            }
-        }
-    </style>
-</head>
-<body>
-
-<div id="onlineStatus">
-    <i class="fas fa-user" style="color: #8b4513;"></i>
-    <span id="onlineText" class="ml-2">Online</span>
-    <span id="randomNumber" class="ml-2"></span>
-</div>
-
-<!-- Font Awesome -->
-<script src="https://kit.fontawesome.com/your-font-awesome-kit-id.js" crossorigin="anonymous"></script>
-
-<!-- Bootstrap JS and jQuery (Popper.js included) -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-<script>
-    function updateRandomNumber() {
-        var randomNumber = Math.floor(Math.random() * (834 - 583 + 1)) + 583;
-        document.getElementById('randomNumber').textContent = randomNumber;
-    }
-
-    // Hemen başlangıçta bir kere çağrılacak
-    updateRandomNumber();
-
-    setInterval(updateRandomNumber, 5000);
-
-    function toggleBlink() {
-        var onlineText = document.getElementById('onlineText');
-        onlineText.classList.toggle('blink');
-    }
-
-    setInterval(toggleBlink, 1000);
-</script>
-
-</body>
-</html>
 
 <!DOCTYPE html>
 <html>
@@ -463,4 +331,137 @@ const START_INC = 1; //Başlangıç sayısı
 </script>   
       
     
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>IP Address</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #ipAddress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 10px;
+            background-color: #d2b48c; /* Altın kahverengisi */
+            border-bottom-right-radius: 5px;
+        }
+
+        #ipText {
+            color: #8b4513; /* Altın kahverengisi tonları */
+        }
+
+        #ipValue {
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="ipAddress">
+    <span id="ipText">IP: </span>
+    <span id="ipValue"></span>
+</div>
+
+<!-- Bootstrap JS ve jQuery (Popper.js içerir) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+    // IP adresini almak için "ipinfo.io" API'sini kullanıyoruz
+    function getIPAddress() {
+        fetch("https://ipinfo.io/json")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('ipValue').textContent = data.ip;
+            })
+            .catch(error => console.error('IP adresi alınamadı', error));
+    }
+
+    // Hemen başlangıçta bir kere çağrılacak
+    getIPAddress();
+
+    // Her 5 saniyede bir IP adresini güncelle
+    setInterval(getIPAddress, 5000);
+</script>
+
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Online Status</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #onlineStatus {
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding: 10px;
+            background-color: #d2b48c; /* Altın kahverengisi */
+            border-bottom-left-radius: 5px;
+        }
+
+        #onlineText, #randomNumber {
+            color: #8b4513; /* Altın kahverengisi tonları */
+        }
+
+        .blink {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div id="onlineStatus">
+    <i class="fas fa-user" style="color: #8b4513;"></i>
+    <span id="onlineText" class="ml-2">Online</span>
+    <span id="randomNumber" class="ml-2"></span>
+</div>
+
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/your-font-awesome-kit-id.js" crossorigin="anonymous"></script>
+
+<!-- Bootstrap JS and jQuery (Popper.js included) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+    function updateRandomNumber() {
+        var randomNumber = Math.floor(Math.random() * (834 - 583 + 1)) + 583;
+        document.getElementById('randomNumber').textContent = randomNumber;
+    }
+
+    // Hemen başlangıçta bir kere çağrılacak
+    updateRandomNumber();
+
+    setInterval(updateRandomNumber, 5000);
+
+    function toggleBlink() {
+        var onlineText = document.getElementById('onlineText');
+        onlineText.classList.toggle('blink');
+    }
+
+    setInterval(toggleBlink, 1000);
+</script>
+
+</body>
 </html>
