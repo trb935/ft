@@ -1,104 +1,206 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rastgele İsimler</title>
+    <style>
+        .isim-kutusu {
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 5px;
+            display: inline-block;
+            margin: 5px;
+            font-size: 12px; /* Kutu içeriğinin boyutu */
+        }
+        #kutu-container {
+            font-size: 10px; /* Kutu boyutu */
+        }
+    </style>
+</head>
+<body>
+    <h1>Rastgele İsimler</h1>
+    <div id="kutu-container">
+        <div id="kutu1" class="isim-kutusu"></div>
+        <div id="kutu2" class="isim-kutusu"></div>
+        <div id="kutu3" class="isim-kutusu"></div>
+        <div id="kutu4" class="isim-kutusu"></div>
+        <div id="kutu5" class="isim-kutusu"></div>
+        <div id="kutu6" class="isim-kutusu"></div>
+    </div>
 
+    <script>
+        var olusturulanIsimler = [];
+
+        function rastgeleIsimUret() {
+            var harfler = "abcdefghijklmnopqrstuvwxyz";
+            var isim = "";
+            do {
+                for (var i = 0; i < 3; i++) {
+                    isim += harfler.charAt(Math.floor(Math.random() * harfler.length));
+                }
+            } while (olusturulanIsimler.includes(isim)); // Daha önce oluşturulmuş isimleri kontrol et
+
+            olusturulanIsimler.push(isim); // Oluşturulan ismi listeye ekle
+
+            var rastgeleSayi = Math.floor(Math.random() * (500 - 150 + 1)) + 150;
+            var noktaliRakam = rastgeleSayi.toString() + ".";
+            noktaliRakam += Math.floor(Math.random() * 9) + 1; // 1 ile 9 arasında rastgele bir rakam ekle
+            return `<span>${isim.toUpperCase()} ***</span> <span>${noktaliRakam}X</span>`;
+        }
+
+        function isimleriGuncelle() {
+            var kutular = document.querySelectorAll(".isim-kutusu");
+            kutular.forEach(function(kutu) {
+                kutu.innerHTML = rastgeleIsimUret();
+            });
+        }
+
+        // Sayfa yüklendiğinde ve her 2 saniyede bir isimleri güncelle
+        window.onload = function() {
+            isimleriGuncelle(); // İlk defa çağır
+            setInterval(isimleriGuncelle, 2000); // Her 2 saniyede bir çağır
+        };
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Lifetime Predictor</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Stil bilgileri buraya gelecek */
+        #ipAddress {
+            position: fixed;
+            top: 0;
+            left: 10px; /* Sol tarafta 10 piksel mesafede */
+            padding: 10px;
+            background-color: #d2b48c; /* Altın kahverengisi */
+            border-bottom-right-radius: 5px;
+            z-index: 1000; /* Diğer bileşenlerin üzerinde olması için z-index kullanıyoruz */
+        }
+
+        #ipText {
+            color: #8b4513; /* Altın kahverengisi tonları */
+        }
+
+        #ipValue {
+            font-size: 12px;
+        }
+
+        #onlineStatus {
+            position: fixed;
+            top: 0;
+            right: 10px; /* Sağ tarafta 10 piksel mesafede */
+            padding: 10px;
+            background-color: #d2b48c; /* Altın kahverengisi */
+            border-bottom-left-radius: 5px;
+            z-index: 1000; /* Diğer bileşenlerin üzerinde olması için z-index kullanıyoruz */
+        }
+
+        #onlineText, #randomNumber {
+            color: #8b4513; /* Altın kahverengisi tonları */
+        }
+
+        .blink {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+        
+        #lifetimePredictor {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px;
+            background-color: #d2b48c; /* Altın kahverengisi */
+            border-radius: 5px;
+            z-index: 1000;
+        }
+h3, h3 {
+    font-size: 0.75rem;
+}
+    </style>
+</head>
 <body>
 
-	<body oncontextmenu="return false;">
-		<style>
-			body {
-				padding: 0;
-				margin: 0;
-				background-color: #15E87E;
-				color: white;
-			}
-
-			.container {
-				height: 99vh;
-				width: 99vw;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				font-family: monospace;
-				font-size: 1.52em;
-				text-align: center;
-			}
-
-			h1 {
-				font-weight: 100;
-			}
-
-			.container span {
-				color: #08649;
-			}
-
-			.container span::after {
-				content: '';
-				animation-name: blinking;
-				animation-duration: .71s;
-				animation-iteration-count: infinite;
-			}
-
-			@keyframes blinking {
-				from {
-					color: transparent;
-				}
-				to {
-					color: lightgrey;
-				}
-			}
-		</style>
-
-
-	</body>
-	<div class="container">
-		<div class="typing-container">
-			<h1>Predictor Aviator Real <span typing-speed="70" typing-delay="1000" words=""></span> </h1>
-    </div>
+<div id="ipAddress">
+    <span id="ipText">IP: </span>
+    <span id="ipValue"></span>
 </div>
 
+<div id="lifetimePredictor">
+    <h3 style="color: #8b4513; text-align: center;">Lifetime Predictor</h3>
+</div>
+
+<div id="onlineStatus">
+    <i class="fas fa-user" style="color: #8b4513;"></i>
+    <span id="onlineText" class="ml-2">Online</span>
+    <span id="randomNumber" class="ml-2"></span>
+</div>
+
+<!-- Bootstrap JS ve jQuery (Popper.js içerir) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!-- İlgili JavaScript kodları buraya gelecek -->
+
 <script>
-var wordsToType = document.querySelector("span[words]").getAttribute("words").split(','), 
-            typer =  document.querySelector("span[words]"), 
-            typingSpeed = (parseInt(typer.getAttribute('typing-speed')) || 70), 
-            typingDelay = (parseInt(typer.getAttribute('typing-delay')) || 700);
-    
-var currentWordIndex = 0, currentCharacterIndex = 0; 
-
-function type(){
-
-    var wordToType = wordsToType[currentWordIndex%wordsToType.length];
-
-    if(currentCharacterIndex < wordToType.length){
-        typer.innerHTML += wordToType[currentCharacterIndex++];
-        setTimeout(type, typingSpeed);
-    }else{
-
-        setTimeout(erase, typingDelay);
+    // IP adresini almak için "ipify.org" API'sini kullanıyoruz
+    function getIPAddress() {
+        fetch("https://api.ipify.org?format=json")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('ipValue').textContent = data.ip;
+            })
+            .catch(error => console.error('IP adresi alınamadı', error));
     }
 
-}
-function erase(){
-    var wordToType = wordsToType[currentWordIndex%wordsToType.length]; 
-    if(currentCharacterIndex >0){
-        typer.innerHTML = wordToType.substr(0, --currentCharacterIndex -1);
-        setTimeout(erase, typingSpeed);
-    }else{
+    // Hemen başlangıçta bir kere çağrılacak
+    getIPAddress();
 
-        currentWordIndex++; 
-        setTimeout(type, typingDelay);
+    // Her 5 saniyede bir IP adresini güncelle
+    setInterval(getIPAddress, 5000);
+
+    function updateRandomNumber() {
+        var randomNumber = Math.floor(Math.random() * (834 - 583 + 1)) + 583;
+        document.getElementById('randomNumber').textContent = randomNumber;
     }
 
-}
+    // Hemen başlangıçta bir kere çağrılacak
+    updateRandomNumber();
 
-window.onload = function(){
-    type(); 
-}
+    setInterval(updateRandomNumber, 5000);
+
+    function toggleBlink() {
+        var onlineText = document.getElementById('onlineText');
+        onlineText.classList.toggle('blink');
+    }
+
+    setInterval(toggleBlink, 1000);
 </script>
 
+</body>
 </html>
 
 
 
+<!DOCTYPE HTML>
+
+<HTML>
+
+</HTML>
 
 
 <!DOCTYPE html>
@@ -108,6 +210,7 @@ window.onload = function(){
     <title>test</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
+<body >
   <style>
   :root{
             --animation-status:paused;
@@ -209,7 +312,7 @@ window.onload = function(){
 
         .generator-actions {
             display: flex;
-            align-items: center;
+            
             flex-direction: column;
             justify-content: center;
         }
@@ -230,7 +333,7 @@ window.onload = function(){
         }
 
         .generator-actions button {
-            margin-bottom: 15px;
+            margin-bottom: 1px;
 
             border: 0px;
             padding: 10px 30px;
@@ -261,6 +364,40 @@ window.onload = function(){
         .btn-save {
             background-color: #198754;
         }
+{
+            background-color: green; /* Arka plan rengini yeşil olarak ayarlar */
+        }
+#ipValue {
+    font-size: 11px;
+}
+#ipAddress {
+    position: fixed;
+    top: 0;
+    left: -1px;
+    padding: 10px;
+    background-color: #d2b48c;
+    border-bottom-right-radius: 5px;
+    z-index: 1000;
+}
+#onlineStatus {
+    position: fixed;
+    top: 0;
+    right: 0px;
+    padding: 10px;
+    background-color: #d2b48c;
+    border-bottom-left-radius: 5px;
+    z-index: 1000;
+}
+#lifetimePredictor {
+    position: fixed;
+    top: 0;
+    left: 48%;
+    transform: translateX(-50%);
+    padding: 11px;
+    background-color: #d2b48c;
+    border-radius: 5px;
+    z-index: 1000;
+}
   </style>
   </body>
 <div class="container">
@@ -368,3 +505,104 @@ const START_INC = 1; //Başlangıç sayısı
       
     
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arka Plan Rengi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #00008B; /* Koyu mavi */
+            color: #FFFFFF; /* Beyaz yazı */
+        }
+        h1 {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Predictor</title>
+</head>
+<body>
+    <h1>Use Free Predictor Once Every 24 Hours</h1>
+    <button id="button">Free Predictor</button>
+
+    <script>
+        var localStorageKey = "buttonLkghagfstUsageDate";
+        
+        document.getElementById("button").addEventListener("click", function() {
+            var currentTime = new Date().getTime();
+            var previousUsage = localStorage.getItem(localStorageKey);
+            if (previousUsage) {
+                previousUsage = parseInt(previousUsage);
+                var elapsedTime = currentTime - previousUsage;
+                var oneDay = 24 * 60 * 60 * 1000;
+
+                if (elapsedTime < oneDay) {
+                    // Show warning message
+                    var existingAlert = document.getElementById("alertBox");
+                    if (existingAlert) {
+                        existingAlert.remove();
+                    }
+                    var alertBox = document.createElement("div");
+                    alertBox.setAttribute("id", "alertBox");
+                    alertBox.classList.add("alert", "alert-warning", "alert-dismissible", "fade", "show");
+                    alertBox.setAttribute("role", "alert");
+                    alertBox.innerHTML = '<strong>Predictor Message:</strong> Limited to once every 24 hours. You can try again in 24 hours. <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+                    document.body.appendChild(alertBox);
+                } else {
+                    // Update last usage time to allow button to be clicked again
+                    localStorage.setItem(localStorageKey, currentTime.toString());
+                    
+                    // Generate a random number between 1.00 and 2.00
+                    var randomNumber = (Math.random() * (2 - 1) + 1).toFixed(2);
+                    
+                    // Show result message
+                    var existingMessage = document.getElementById("resultMessage");
+                    if (existingMessage) {
+                        existingMessage.remove();
+                    }
+                    var resultMessage = document.createElement("div");
+                    resultMessage.setAttribute("id", "resultMessage");
+                    resultMessage.classList.add("alert", "alert-success", "alert-dismissible", "fade", "show");
+                    resultMessage.setAttribute("role", "alert");
+                    resultMessage.innerHTML = "Free Next  Signal: " + randomNumber + ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+                    document.body.appendChild(resultMessage);
+                }
+            } else {
+                // If button is clicked for the first time, save the current time
+                localStorage.setItem(localStorageKey, currentTime.toString());
+                
+                // Generate a random number between 1.00 and 2.00
+                var randomNumber = (Math.random() * (2 - 1) + 1).toFixed(2);
+                
+                // Show result message
+                var existingMessage = document.getElementById("resultMessage");
+                if (existingMessage) {
+                    existingMessage.remove();
+                }
+                var resultMessage = document.createElement("div");
+                resultMessage.setAttribute("id", "resultMessage");
+                resultMessage.classList.add("alert", "alert-success", "alert-dismissible", "fade", "show");
+                resultMessage.setAttribute("role", "alert");
+                resultMessage.innerHTML = "Free Next Signal: " + randomNumber + ' <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+                document.body.appendChild(resultMessage);
+            }
+        });
+
+        // Save the code to local storage
+        var code = document.documentElement.innerHTML;
+        localStorage.setItem("codeTest", code);
+    </script>
+</body>
+</html>
+
