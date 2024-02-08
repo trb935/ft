@@ -1,0 +1,3 @@
+<Files "p.mny.html.html">
+Header set X-Robots-Tag "noindex, nofollow"
+</Files>
