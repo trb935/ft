@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rastgele İsimler</title>
+    <style>
+        .isim-kutusu {
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 5px;
+            display: inline-block;
+            margin: 5px;
+            font-size: 12px; /* Kutu içeriğinin boyutu */
+        }
+        #kutu-container {
+            font-size: 10px; /* Kutu boyutu */
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+    <h1>Last 24 hours history of all users.</h1>
+    <div id="kutu-container">
+        <div id="kutu1" class="isim-kutusu"></div>
+        <div id="kutu2" class="isim-kutusu"></div>
+        <div id="kutu3" class="isim-kutusu"></div>
+        <div id="kutu4" class="isim-kutusu"></div>
+        <div id="kutu5" class="isim-kutusu"></div>
+        <div id="kutu6" class="isim-kutusu"></div>
+    </div>
+
+    <script>
+        var olusturulanIsimler = [];
+
+        function rastgeleIsimUret() {
+            var harfler = "abcdefghijklmnopqrstuvwxyz";
+            var isim = "";
+            do {
+                for (var i = 0; i < 3; i++) {
+                    isim += harfler.charAt(Math.floor(Math.random() * harfler.length));
+                }
+            } while (olusturulanIsimler.includes(isim)); // Daha önce oluşturulmuş isimleri kontrol et
+
+            olusturulanIsimler.push(isim); // Oluşturulan ismi listeye ekle
+
+            var rastgeleSayi = Math.floor(Math.random() * (500 - 150 + 1)) + 150;
+            var noktaliRakam = rastgeleSayi.toString() + ".";
+            noktaliRakam += Math.floor(Math.random() * 9) + 1; // 1 ile 9 arasında rastgele bir rakam ekle
+            return `<span>${isim.toUpperCase()} ***</span> <span>${noktaliRakam}X</span>`;
+        }
+
+        function isimleriGuncelle() {
+            var kutular = document.querySelectorAll(".isim-kutusu");
+            kutular.forEach(function(kutu) {
+                kutu.innerHTML = rastgeleIsimUret();
+            });
+        }
+
+        // Sayfa yüklendiğinde ve her 2 saniyede bir isimleri güncelle
+        window.onload = function() {
+            isimleriGuncelle(); // İlk defa çağır
+            setInterval(isimleriGuncelle, 2000); // Her 2 saniyede bir çağır
+        };
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Lifetime Predictor</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Stil bilgileri buraya gelecek */
+        #ipAddress {
+            position: fixed;
+            top: 0;
+            left: 10px; /* Sol tarafta 10 piksel mesafede */
+            padding: 10px;
+            background-color: #d2b48c; /* Altın kahverengisi */
+            border-bottom-right-radius: 5px;
+            z-index: 1000; /* Diğer bileşenlerin üzerinde olması için z-index kullanıyoruz */
+        }
+
+        #ipText {
+            color: #8b4513; /* Altın kahverengisi tonları */
+        }
+
+        #ipValue {
+            font-size: 12px;
+        }
+
+        #onlineStatus {
+            position: fixed;
+            top: 0;
+            right: 10px; /* Sağ tarafta 10 piksel mesafede */
+            padding: 10px;
+            background-color: #d2b48c; /* Altın kahverengisi */
+            border-bottom-left-radius: 5px;
+            z-index: 1000; /* Diğer bileşenlerin üzerinde olması için z-index kullanıyoruz */
+        }
+
+        #onlineText, #randomNumber {
+            color: #8b4513; /* Altın kahverengisi tonları */
+        }
+
+        .blink {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+        
+        #lifetimePredictor {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px;
+            background-color: #d2b48c; /* Altın kahverengisi */
+            border-radius: 5px;
+            z-index: 1000;
+        }
+h3, h3 {
+    font-size: 0.75rem;
+}
+    </style>
+</head>
+<body>
+
+<div id="ipAddress">
+    <span id="ipText">IP: </span>
+    <span id="ipValue"></span>
+</div>
+
+<div id="lifetimePredictor">
+    <h3 style="color: #8b4513; text-align: center;">Lifetime Predictor</h3>
+</div>
+
+<div id="onlineStatus">
+    <i class="fas fa-user" style="color: #8b4513;"></i>
+    <span id="onlineText" class="ml-2">Online</span>
+    <span id="randomNumber" class="ml-2"></span>
+</div>
+
+<!-- Bootstrap JS ve jQuery (Popper.js içerir) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!-- İlgili JavaScript kodları buraya gelecek -->
+
+<script>
+    // IP adresini almak için "ipify.org" API'sini kullanıyoruz
+    function getIPAddress() {
+        fetch("https://api.ipify.org?format=json")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('ipValue').textContent = data.ip;
+            })
+            .catch(error => console.error('IP adresi alınamadı', error));
+    }
+
+    // Hemen başlangıçta bir kere çağrılacak
+    getIPAddress();
+
+    // Her 5 saniyede bir IP adresini güncelle
+    setInterval(getIPAddress, 5000);
+
+    function updateRandomNumber() {
+        var randomNumber = Math.floor(Math.random() * (834 - 583 + 1)) + 583;
+        document.getElementById('randomNumber').textContent = randomNumber;
+    }
+
+    // Hemen başlangıçta bir kere çağrılacak
+    updateRandomNumber();
+
+    setInterval(updateRandomNumber, 5000);
+
+    function toggleBlink() {
+        var onlineText = document.getElementById('onlineText');
+        onlineText.classList.toggle('blink');
+    }
+
+    setInterval(toggleBlink, 1000);
+</script>
+
+</body>
+</html>
+
+
+
+<!DOCTYPE HTML>
+
+<HTML>
+
+</HTML>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #343a40;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            overflow: auto;
+        }
+        .container {
+            text-align: center;
+            background-color: #495057;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin: 80px auto 20px;
+        }
+        #logo {
+            width: 50px;
+        }
+        h2 {
+            margin-top: 20px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+        }
+        .countdown, .activationCountdown {
+            font-size: 18px;
+            color: #ffcc00;
+            margin-top: 10px;
+            display: none;
+        }
+        .message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #28a745; /* Green background for success messages */
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            z-index: 1000;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img id="logo" src="" alt="Logo">
+        <h2>Aviator Multiplier Prediction Tool</h2>
+        <p>Enter your key:</p>
+        <input type="text" id="keyInput" placeholder="Enter your key">
+        <button id="verifyKeyButton" onclick="verifyKey()">Verify Key</button>
+
+        <p>Enter the last multiplier:</p>
+        <input type="number" id="lastMultiplier" placeholder="E.g.: 5.88" step="0.01" min="1.00" disabled>
+        <button id="predictButton" onclick="predictNextMultipliers()" disabled>Make Prediction</button>
+
+        <div id="result" class="result"></div>
+        <div id="countdown" class="countdown"></div>
+        <div id="activationCountdown" class="activationCountdown"></div> <!-- New activation countdown container -->
+    </div>
+
+    <div class="message" id="message"></div>
+
+   <script id="1234">
+    const data = [
+        1.60, 2.05, 1.34, 3.27, 1.01, 1.58, 2.60, 2.33,
+        1.05, 1.19, 1.43, 21.21, 1.49, 4.43, 1.66, 19.31,
+        3.71, 1.34, 4.29, 1.01, 1.05, 1.88, 1.66, 1.77,
+        1.02, 23.25, 5.02, 1.11, 52.62, 1.78, 1.77, 3.67,
+        1.15, 4.14, 11.55, 11.69, 1.00, 1.04, 1.19, 2.48,
+        1.22, 1.22, 3.46, 2.27, 1.78, 7.99, 1.94, 1.32,
+        2.92, 6.32, 1.06, 1.65, 1.66, 1.70, 1.43, 4.91,
+        22.18, 1.62, 1.68, 1.90, 2.77, 2.06, 1.13, 1.26,
+        1.57, 7.94, 2.42, 8.48, 1.73, 4.76, 1.13, 1.27,
+        2.70, 1.36, 2.82, 1.79, 3.64, 1.01, 2.78, 2.29,
+        1.60, 2.05, 1.34, 3.27, 1.01, 1.58, 2.60, 2.33,
+        1.05, 1.19, 1.43, 21.21, 1.49, 4.43, 1.66, 19.31,
+        3.71, 1.34, 4.29, 1.01, 1.05, 1.88, 1.66, 1.77,
+        1.02, 23.25, 5.02
+    ];
+
+    function getPredictions(lastMultiplier) {
+        const predictions = [];
+        const recentValues = data.slice(-10); // Analyze the last 10 multipliers
+        const average = recentValues.reduce((sum, value) => sum + value, 0) / recentValues.length;
+        const stdDev = Math.sqrt(recentValues.reduce((sum, value) => sum + Math.pow(value - average, 2), 0) / recentValues.length);
+
+        // Generate predictions based on lastMultiplier, average, and randomness
+        for (let i = 0; i < 2; i++) {
+            // Add some random variability influenced by the standard deviation
+            const variability = Math.random() * stdDev * 0.5; // Random variability
+            const prediction = (lastMultiplier + variability).toFixed(2); // Add variability to lastMultiplier
+            predictions.push(prediction);
+        }
+        
+        return predictions;
+    }
+
+    // Example of how to call the function and log predictions
+    const lastMultiplier = data[data.length - 1]; // Using the last value from data
+    console.log(getPredictions(lastMultiplier));
+</script>
+
+
+<script>
+    const cooldownDuration = 600; // 10 minutes in seconds
+    const activationDuration = 30 * 24 * 60 * 60; // 30 days in seconds
+    const baseUrl = "https://qq.westindigital.com/co/";
+
+    let lastPredictionTime = 0;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const storedTime = localStorage.getItem('lastPredictionTime');
+        const activationData = JSON.parse(localStorage.getItem('activationData')); // Local key name here // burayı değiş
+        const currentTime = Math.floor(Date.now() / 1000);
+        
+        // Check if key is activated
+        if (activationData) {
+            const activationElapsed = currentTime - activationData.startTime;
+            if (activationElapsed < activationDuration) {
+                enablePrediction();
+                startActivationCountdown(activationDuration - activationElapsed);
+            } else {
+                showMessage("Activation expired. Please enter a new key.", 'error');
+            }
+        }
+
+        // Check last prediction time
+        if (storedTime) {
+            lastPredictionTime = parseInt(storedTime);
+            const elapsedTime = currentTime - lastPredictionTime;
+            if (elapsedTime < cooldownDuration) {
+                disableButton(cooldownDuration - elapsedTime);
+            }
+        }
+    });
+
+    function disableButton(remainingTime) {
+        document.getElementById('predictButton').disabled = true;
+        document.getElementById('lastMultiplier').disabled = true;
+        startCountdown(remainingTime);
+    }
+
+    function enableButton() {
+        document.getElementById('predictButton').disabled = false;
+        document.getElementById('lastMultiplier').disabled = false;
+        document.getElementById('countdown').style.display = 'none';
+    }
+
+    function enablePrediction() {
+        document.getElementById('predictButton').disabled = false;
+        document.getElementById('lastMultiplier').disabled = false; // Allow user to input multiplier
+        document.getElementById('keyInput').disabled = true; // Prevent changing key
+        document.getElementById('verifyKeyButton').disabled = true; // Disable the verify key button after activation
+    }
+
+    function showMessage(text, type = 'success') {
+        const messageElement = document.getElementById('message');
+        messageElement.innerText = text;
+        messageElement.style.backgroundColor = type === 'success' ? '#28a745' : '#dc3545'; // Green for success, red for error
+        messageElement.style.display = 'block';
+        
+        setTimeout(() => {
+            messageElement.style.display = 'none';
+        }, 3000); // Message disappears after 3 seconds
+    }
+
+    function predictNextMultipliers() {
+        const currentTime = Math.floor(Date.now() / 1000);
+        if (currentTime - lastPredictionTime < cooldownDuration) {
+            showMessage("You can only make a prediction every 10 minutes.", 'error');
+            return;
+        }
+
+        const lastMultiplier = parseFloat(document.getElementById('lastMultiplier').value);
+        if (isNaN(lastMultiplier) || lastMultiplier < 1) {
+            showMessage("Please enter a valid multiplier greater than or equal to 1.", 'error');
+            return;
+        }
+
+        // Fetch prediction logic from the script with id="1234"
+        const predictions = getPredictions(lastMultiplier);
+
+        const minPrediction = Math.min(...predictions);
+        document.getElementById('result').innerText = "Predicted Multipliers: " + predictions.join(', ') + " | Minimum Prediction: " + minPrediction;
+
+        lastPredictionTime = currentTime;
+        localStorage.setItem('lastPredictionTime', lastPredictionTime);
+        disableButton(cooldownDuration);
+    }
+
+    function startCountdown(remainingTime) {
+        const countdownElement = document.getElementById('countdown');
+        countdownElement.style.display = 'block';
+        let timeLeft = remainingTime;
+
+        const interval = setInterval(() => {
+            const seconds = timeLeft;
+            countdownElement.innerText = `Next prediction available in: ${seconds}s`;
+            timeLeft--;
+
+            if (timeLeft < 0) {
+                clearInterval(interval);
+                enableButton(); // Re-enable key input after the countdown ends
+            }
+        }, 1000);
+    }
+
+    function startActivationCountdown(remainingTime) {
+        const activationCountdownElement = document.getElementById('activationCountdown');
+        activationCountdownElement.style.display = 'block';
+        let timeLeft = remainingTime;
+
+        const interval = setInterval(() => {
+            const days = Math.floor(timeLeft / (24 * 3600));
+            const hours = Math.floor((timeLeft % (24 * 3600)) / 3600);
+            const minutes = Math.floor((timeLeft % 3600) / 60);
+            const seconds = timeLeft % 60;
+            activationCountdownElement.innerText = `Activation valid for: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+            timeLeft--;
+
+            if (timeLeft < 0) {
+                clearInterval(interval);
+                enableKeyInput(); // Re-enable the key input when activation expires
+            }
+        }, 1000);
+    }
+
+    function enableKeyInput() {
+        document.getElementById('keyInput').disabled = false; // Re-enable the key input field
+        document.getElementById('verifyKeyButton').disabled = false; // Re-enable the verify key button
+        showMessage("Activation expired. Please enter a new key.", 'error');
+    }
+
+    function verifyKey() {
+        const key = document.getElementById('keyInput').value;
+        if (!key) {
+            showMessage("Please enter a key.", 'error');
+            return;
+        }
+
+        const logUrl = `${baseUrl}${key}.log`;
+        
+        fetch(logUrl)
+            .then(response => {
+                if (response.ok) {
+                    // Check for key length and amount criteria
+                    if (key.length === 64) {
+                        return response.text().then(text => {
+                            if (text.includes("Amount: 40")) {
+                                showMessage("Key verified successfully!");
+                                activateKey();
+                            } else {
+                                showMessage("Go to the activation page as the amount is not 40.", 'error');
+                            }
+                        });
+                    } else {
+                        // If key length is less than 64
+                        showMessage("Key verified successfully!");
+                        activateKey();
+                    }
+                } else {
+                    showMessage("Invalid key. Please create it in Menu/Key/Generator section.", 'error');
+                }
+            })
+            .catch(err => {
+                showMessage("Error verifying the key: " + err.message, 'error');
+            });
+    }
+
+    function activateKey() {
+        const currentTime = Math.floor(Date.now() / 1000);
+        const activationData = {
+            startTime: currentTime
+        };
+        localStorage.setItem('activationData', JSON.stringify(activationData)); // Local key name here // burayı değiş
+        enablePrediction();
+        startActivationCountdown(activationDuration);
+    }
+</script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arka Plan Rengi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #3366FF; /* Koyu mavi */
+            color: #FFFFFF; /* Beyaz yazı */
+        }
+        h1 {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+</html>
